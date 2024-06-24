@@ -1,0 +1,31 @@
+:main
+a_name Intento de Addon
+a_version 1.0
+a_author Nirsock
+a_add_type c_for
+a_add_version c_for 1.20.1 https://maven.minecraftforge.net/net/minecraftforge/forge/1.20.1-47.3.0/forge-1.20.1-47.3.0-installer.jar 17
+
+:button instalar_Seaopolis:Submerged
+text Instalar Seaopolis:Submerged (1.20.1 / Forge)
+remove_server
+download_version y c_for 1.20.1
+
+exec wget -O forge-installer.jar https://maven.minecraftforge.net/net/minecraftforge/forge/1.20.1-47.3.0/forge-1.20.1-47.3.0-installer.jar
+exec if [ ! -f forge-installer.jar ]; then echo "Error: El archivo JAR no se descargó correctamente"; exit 1; fi
+
+exec java -jar forge-installer.jar --installServer > forge_install.log 2>&1
+
+config server_type forge
+config server_version 1.20.1
+config_save
+
+say Descargando Seaopolis...
+say Instalando Seaopolis...
+
+download_file https://www.dropbox.com/scl/fi/58t7e2hl4m7c7uyjgwlks/Submerged_server_pack.zip?rlkey=f8pkorfttvxwt2ik7shq8xm27&st=f4wnfkz3&dl=1 Submerged_server_pack.zip
+exec if [ ! -f Submerged_server_pack.zip ]; then echo "Error: El archivo ZIP no se descargó correctamente"; exit 1; fi
+unzip Submerged_server_pack.zip
+
+say Seaopolis instalado!
+exec echo "eula=true" >> eula.txt
+sleep 3
